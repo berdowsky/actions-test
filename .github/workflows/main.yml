@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Lumadata yaml test
         id: hello
-        uses: Lumadata/actions@v0.1.4
+        uses: Lumadata/actions@v0.1.5
         with:
           repository-key: ${{ secrets.REPOSITORY_KEY }}
           repository-secret-key: ${{ secrets.REPOSITORY_SECRET_KEY }}
