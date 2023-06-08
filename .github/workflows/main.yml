@@ -1,0 +1,14 @@
+on: [push]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: Test Luamdata actions
+    steps:
+      - name: Lumadata yaml test
+        id: hello
+        uses: berdowsky/actions:0.1.0
+        with:
+          repository-key: ${{ secrets.REPOSITORY_KEY }}
+          repository-secret-key: ${{ secrets.REPOSITORY_SECRET_KEY }}
+          file-path: lumadata-test-Test_profile.yaml
