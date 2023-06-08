@@ -5,10 +5,13 @@ jobs:
     runs-on: ubuntu-latest
     name: Test Luamdata actions
     steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
       - name: Lumadata yaml test
         id: hello
         uses: Lumadata/actions@v0.1.6
         with:
           repository-key: ${{ secrets.REPOSITORY_KEY }}
           repository-secret-key: ${{ secrets.REPOSITORY_SECRET_KEY }}
-          path-to-directory: ./tests
+          path-to-directory: tests
