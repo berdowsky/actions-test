@@ -11,4 +11,4 @@ jobs:
         with:
           repository-key: ${{ secrets.REPOSITORY_KEY }}
           repository-secret-key: ${{ secrets.REPOSITORY_SECRET_KEY }}
-          path-to-directory: ./
+          path-to-directory: ./tests
