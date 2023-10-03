@@ -7,7 +7,7 @@ lumadata_test:
     - Orders
   connection_source_name: Data Warehouse
   source_definition: |-
-    select 
+    select /* test */
     	to_char(order_date::date, 'yyyy-mm') as period,
     	sum(orders) as orders,
     	sum(units_sold) as units_sold, 
