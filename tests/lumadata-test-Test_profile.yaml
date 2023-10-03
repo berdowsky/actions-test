@@ -1,76 +1,73 @@
 lumadata_schema:
   version: 1.1
 lumadata_test:
-  name: Test profile
-  type: Profile
-  tags: []
+  name: Orders - all history by region
+  type: Snapshot
+  tags:
+    - Orders
   connection_source_name: Data Warehouse
-  source_definition: select order_date::timestamp, sum(orders) as orders,
-    sum(units_sold) as units_sold, sum(unit_price) as unit_price, sum(unit_cost)
-    as unit_cost, sum(total_revenue) as total_revenue, sum(total_profit) as
-    total_profit from test_dw.orders where order_date::date between
-    '2017-07-28'::date - interval '30 days' and '2017-07-28'::date group by 1
+  source_definition: |-
+    select 
+    	to_char(order_date::date, 'yyyy-mm') as period,
+    	sum(orders) as orders,
+    	sum(units_sold) as units_sold, 
+    	sum(unit_price) as unit_price, 
+    	sum(unit_cost) as unit_cost, 
+    	sum(total_revenue) as total_revenue, 
+    	sum(total_profit) as total_profit
+    from test_dw.orders 
+    where order_date::date between '2010-01-01' and '2016-12-31'
+    group by 1
     order by 1 desc
-  connection_target_name: Data Warehouse
-  target_definition: select order_date::timestamp, sum(orders) as orders,
-    sum(units_sold) as units_sold, sum(unit_price) as unit_price, sum(unit_cost)
-    as unit_cost, sum(total_revenue) as total_revenue, sum(total_profit) as
-    total_profit from test_dw.orders where order_date::date between
-    '2015-01-01'::date and '2017-05-31'::date group by 1 order by random() limit
-    5000
   specification:
-    profile_test:
-      - column_name: order_date
-        column_type: timestamp
-        column_tests:
-          - test_type: volume
-            metric: column_per_day
-            tolerance: 35
-            tolerance_units: percent
-          - test_type: volume
-            metric: column_per_hour
-            tolerance: 35
-            tolerance_units: percent
-          - test_type: recency
-            metric: recency
-            tolerance: 1
-            tolerance_units: day
-      - column_name: orders
-        column_type: number
-        column_tests:
-          - test_type: variance
-            metric: column_distinct_count_ratio
-            tolerance: 35
-            tolerance_units: percent
-          - test_type: blank
-            metric: column_null_ratio
-            tolerance: 35
-            tolerance_units: percent
-          - test_type: variance
-            metric: column_average
-            tolerance: 35
-            tolerance_units: percent
-          - test_type: variance
-            metric: column_average
-            tolerance: 2
-            tolerance_units: deviation
-          - test_type: gap
-            metric: column_average_adjacent_gap
-            tolerance: 35
-            tolerance_units: percent
-      - column_name: units_sold
-        column_type: number
-        column_tests: []
-      - column_name: unit_price
-        column_type: number
-        column_tests: []
-      - column_name: unit_cost
-        column_type: number
-        column_tests: []
-      - column_name: total_revenue
-        column_type: number
-        column_tests: []
-      - column_name: total_profit
-        column_type: number
-        column_tests: []
+    mapping:
+      - operator: =
+        order: ""
+        source_column: period
+        target_column: period
+        function: key
+        value: ""
+        percentage: 0
+      - operator: =
+        order: 1
+        source_column: orders
+        target_column: orders
+        function: value
+        value: ""
+        percentage: 0
+      - operator: =
+        order: 2
+        source_column: units_sold
+        target_column: units_sold
+        function: value
+        value: ""
+        percentage: 0
+      - operator: =
+        order: 3
+        source_column: unit_price
+        target_column: unit_price
+        function: value
+        value: ""
+        percentage: 0
+      - operator: =
+        order: 4
+        source_column: unit_cost
+        target_column: unit_cost
+        function: value
+        value: ""
+        percentage: 0
+      - operator: =
+        order: 5
+        source_column: total_revenue
+        target_column: total_revenue
+        function: value
+        value: ""
+        percentage: 0
+      - operator: =
+        order: 6
+        source_column: total_profit
+        target_column: total_profit
+        function: value
+        value: ""
+        percentage: 0
   deleted_flag: false
